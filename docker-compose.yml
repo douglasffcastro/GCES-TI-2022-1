@@ -33,3 +33,16 @@ services:
         stdin_open: true
         depends_on:
             - library-back
+    nginx:
+        container_name: library-nginx
+        depends_on:
+            - library-db
+            - library-back
+            - library-front
+        restart: always
+        image: library-nginx
+        build:
+            dockerfile: Dockerfile
+            context: ./nginx
+        ports:
+            - "3001:80"
